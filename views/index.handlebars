@@ -1,0 +1,39 @@
+<h1>Eat da Burger</h1>
+<ul>
+    {{#each exist}}
+    <li>
+        <p>
+             {{this.id}}.{{this.burger_name}}
+            <button data-burgerid="{{this.id}}" class="deburger">Devour it!</button>        
+        </p>
+    </li>
+    {{/each}}
+</ul>
+
+<ul>
+    {{#each eaten}}
+    <li>
+        <p>
+             {{this.id}}.{{this.burger_name}}   
+        </p>
+    </li>
+    {{/each}}
+</ul>
+
+<form id="createburger" class="button-size">
+   <textarea type="text" name="burger"></textarea>
+   <button type="submit">Submit</button>
+   <p>Enter a burger you want to eat Click the "Submit" button</p>
+</form>
+
+<script type="text/javascript">
+    $("#createburger").on("submit",function(event){
+        event.preventDefault();
+        
+        var newBurger = {
+            burger:$("#createburger [name=burger]").val().trim()
+        }; 
+    });
+</script>
+
+
