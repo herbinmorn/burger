@@ -1,8 +1,8 @@
 var connection = require("./connection.js");
 
 var orm = {
-all:function(tableInput,cb){
-    var queryString = "SELECT * FROM " + tableInput +";";
+all:function(cb){
+    var queryString = "SELECT * FROM burgers;";
     connection.query(queryString,function(err, result){
         if(err){
             throw err;
@@ -10,16 +10,12 @@ all:function(tableInput,cb){
         cb(result);
     });
 },
-create:function(table, cols, vals, cb){
+create:function(vals, cb){
 
-    var queryString = "INSERT INTO " + table;
-
-    queryString += " (";
-    queryString += cols.toString();
-    queryString += ") ";
-    queryString += "VALUES (";
-    queryString += printQuestionMarks(vals.length);
-    queryString += ") ";
+    var queryString = "INSERT INTO burgers(burger_name, devoured)";
+    queryString += "VALUES ('";
+    queryString += vals;
+    queryString += "', false); ";
 
     console.log(queryString);
     connection.query(queryString, vals, function(err, result){

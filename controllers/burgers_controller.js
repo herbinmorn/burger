@@ -3,15 +3,16 @@ var router = express.Router();
 var burger = require("../models/burger.js");
 
 router.get("/", function(req, res){
+
     burger.all(function(data){
         var eaten = [];
         var exist = [];
 
         for(var i=0; i < data.length; i++){
-            if(data[i].devoured === true){
-                eaten += data[i];
+            if(parseInt(data[i].devoured) == 1){
+                eaten.push(data[i]);
             } else{
-                exist += data[i];
+                exist.push(data[i]);
             }
         }
 
@@ -23,18 +24,21 @@ router.get("/", function(req, res){
         res.render("index", hbsObject);
     });
 });
-//below is wrong!
-// router.post("/",function(req, res){
-//     burger.create([
-//         "name", "devoured"
-//     ],[
-//         req.body.name, req.body.devoured
-//     ],function(result){
-//         res.json({id:result.insertId});
-//     });
-// });
 
-// router.put("api/burgurs/:id", function(req, res){
+router.post("/",function(req, res){
+    console.log(req.body);
+
+    burger.create(
+        req.body.burger, 
+        function(result) {
+            res.json({
+           id:result.insertId
+            });
+        });
+ });
+
+router.put("api/burgurs/:id", function(req, res){
+    console.log("id = "+ req.params.id);
 //     var condition = "id = "+ req.params.id;
 //     console.log("condition", condition);
 //     burger.update({
@@ -46,6 +50,6 @@ router.get("/", function(req, res){
 //             res.status(200).end();
 //         }
 //     });
-// });
+});
 
 module.exports = router;

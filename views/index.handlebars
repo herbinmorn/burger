@@ -1,4 +1,5 @@
 <h1>Eat da Burger</h1>
+On the shelf:
 <ul>
     {{#each exist}}
     <li>
@@ -10,6 +11,7 @@
     {{/each}}
 </ul>
 
+Eaten:
 <ul>
     {{#each eaten}}
     <li>
@@ -33,6 +35,23 @@
         var newBurger = {
             burger:$("#createburger [name=burger]").val().trim()
         }; 
+        console.log(newBurger);
+
+        $.post("/", newBurger, function(){
+            location.reload(true);  
+        });  
+    });
+
+    $(".deburger").click(function(event){
+       event.preventDefault();
+       console.log(event.currentTarget.attributes);
+       var url = "api/burgurs/" + data-burgerid;
+
+       console.log(url);
+
+       $.put(url, null, function(){
+           location.reload();
+       });
     });
 </script>
 
