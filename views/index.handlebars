@@ -5,7 +5,11 @@ On the shelf:
     <li>
         <p>
              {{this.id}}.{{this.burger_name}}
-            <button data-burgerid="{{this.id}}" class="deburger">Devour it!</button>        
+                <form class="devour-form button-size">
+					<input input type="hidden" class="burger_id" type="text" value={{this.id}}><br>
+					<button type="submit" class="btn btn-default">Devour it!</button>
+				</form>
+       
         </p>
     </li>
     {{/each}}
@@ -42,16 +46,20 @@ Eaten:
         });  
     });
 
-    $(".deburger").click(function(event){
+    $(".devour-form").on("submit",function(event){
        event.preventDefault();
-       console.log(event.currentTarget.attributes);
-       var url = "api/burgurs/" + data-burgerid;
 
-       console.log(url);
-
-       $.put(url, null, function(){
+       var burger_id = $(this).children(".burger_id").val();
+       console.log(burger_id);
+       $.ajax({
+           method: "PUT",
+           url: "/burgers/" + burger_id
+       }).then(function(data){
            location.reload();
        });
+
+
+       
     });
 </script>
 

@@ -9,7 +9,7 @@ router.get("/", function(req, res){
         var exist = [];
 
         for(var i=0; i < data.length; i++){
-            if(parseInt(data[i].devoured) == 1){
+            if(parseInt(data[i].devoured) ==1){
                 eaten.push(data[i]);
             } else{
                 exist.push(data[i]);
@@ -34,22 +34,16 @@ router.post("/",function(req, res){
             res.json({
            id:result.insertId
             });
+            //res.redirect("/");
         });
  });
 
-router.put("api/burgurs/:id", function(req, res){
-    console.log("id = "+ req.params.id);
-//     var condition = "id = "+ req.params.id;
-//     console.log("condition", condition);
-//     burger.update({
-//         devoured:req.body.devoured
-//     }, condition, function(result){
-//         if(result.changeRows == 0){
-//             return res.status(404).end();
-//         }else{
-//             res.status(200).end();
-//         }
-//     });
+router.put("/burgers/:id", function(req, res){
+    burger.update(req.params.id, function(result){
+        console.log(result);
+        res.sendStatus(200);
+       // res.redirect("/");
+    });
 });
 
 module.exports = router;
