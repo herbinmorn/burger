@@ -2,17 +2,17 @@ var mysql = require("mysql");
 require('dotenv').config();
 
 var connection;
-if(process.env.JAWSDB_URL){
-    connection = mysql.createConnection(process.env.JAWSDB_URL);
-} else {
+// if(process.env.JAWSDB_URL){
+//     connection = mysql.createConnection(process.env.JAWSDB_URL);
+// } else {
     connection= mysql.createConnection({
-    host:"localhost",
+    host:"x3ztd854gaa7on6s.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     port:3306,
-    user:"root",
-    password:process.env.mysql_key,
-    database:"burger_db"
+    user:"si073ef5ttyyi4wc",
+    password:"f2oujezl206icbwd",
+    database:"fzwa61381fsrsq4u"
 });
-};
+// };
 
 connection.connect(function(err){
     if(err) {
